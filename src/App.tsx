@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from './db/supabase';
+import { supabase, isSupabaseConfigured } from './db/supabase';
 import { AuthScreen } from './screens/AuthScreen';
 import { PlanificadorScreen } from './screens/PlanificadorScreen';
 import { CatalogoScreen } from './screens/CatalogoScreen';
@@ -19,6 +19,11 @@ export function App() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setCargandoAuth(false);
+      return;
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setCargandoAuth(false);
@@ -32,6 +37,22 @@ export function App() {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  if (!isSupabaseConfigured) {
+    return (
+      <div style={{ minHeight: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F5F7F4', padding: '20px', fontFamily: 'system-ui, sans-serif' }}>
+        <div style={{ background: 'white', padding: '24px', borderRadius: '16px', maxWidth: '480px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)', textAlign: 'center' }}>
+          <h2 style={{ color: '#33663A', margin: '0 0 12px' }}>Configuración de Supabase requerida</h2>
+          <p style={{ color: '#555', fontSize: '14px', lineHeight: '1.5', margin: '0 0 16px' }}>
+            Las variables de entorno <strong>VITE_SUPABASE_URL</strong> y <strong>VITE_SUPABASE_ANON_KEY</strong> no están configuradas en Vercel.
+          </p>
+          <p style={{ color: '#666', fontSize: '13px', margin: 0 }}>
+            Ve a tu proyecto en Vercel → <em>Settings</em> → <em>Environment Variables</em>, añade ambas variables con tus credenciales de Supabase y haz un Redeploy.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   if (cargandoAuth) {
     return <div style={{ minHeight: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F5F7F4', color: '#33663A', fontWeight: 700 }}>Cargando aplicación...</div>;
