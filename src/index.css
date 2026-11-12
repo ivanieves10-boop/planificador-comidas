@@ -1,0 +1,726 @@
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #263A2B;
+  background: #F5F7F4;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background: #F5F7F4;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.app, .app-shell {
+  width: 100%;
+  min-height: 100dvh;
+  background: #F5F7F4;
+}
+
+.app-header {
+  background: #427A58;
+  color: white;
+  padding:
+    calc(18px + env(safe-area-inset-top))
+    16px
+    16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+}
+
+.app-title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 750;
+}
+
+.app-subtitle {
+  margin: 6px 0 14px;
+  color: #E5F1E8;
+  font-size: 14px;
+}
+
+.header-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.header-action {
+  min-width: 0;
+  min-height: 48px;
+  padding: 6px 4px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #315B40;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.main-content {
+  width: min(100%, 720px);
+  margin: 0 auto;
+  padding: 14px 12px calc(24px + env(safe-area-inset-bottom));
+}
+
+.week-title {
+  margin: 4px 0 12px;
+  text-align: center;
+  color: #263A2B;
+  font-size: 20px;
+  font-weight: 750;
+}
+
+.week-navigation {
+  display: grid;
+  grid-template-columns: 52px 1fr 52px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.navigation-button {
+  width: 52px;
+  height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: #427A58;
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.today-button {
+  min-height: 44px;
+  border: 1px solid #A8C5B0;
+  border-radius: 12px;
+  background: white;
+  color: #315B40;
+  font-weight: 700;
+}
+
+.day-list {
+  display: grid;
+  gap: 12px;
+}
+
+.day-card {
+  padding: 16px;
+  border: 1px solid #E1E8E2;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 3px 10px rgba(36, 58, 43, 0.08);
+}
+
+.day-title {
+  margin: 0 0 12px;
+  color: #315B40;
+  font-size: 17px;
+  font-weight: 750;
+}
+
+.meal-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  min-height: 48px;
+  padding: 4px 0;
+}
+
+.meal-label {
+  padding: 7px 10px;
+  border-radius: 9px;
+  color: #314A36;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.meal-label-food {
+  background: #E7F1E9;
+}
+
+.meal-label-dinner {
+  background: #FFE8C2;
+}
+
+.meal-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: #383838;
+  font-size: 15px;
+}
+
+.edit-button {
+  min-height: 44px;
+  padding: 6px 8px;
+  border: 0;
+  background: transparent;
+  color: #427A58;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  z-index: 50;
+  overflow-y: auto;
+}
+
+.dialog-panel {
+  width: min(100%, 520px);
+  max-height: calc(100dvh - 24px);
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  margin: auto;
+}
+
+.dialog-title {
+  margin: 0 0 14px;
+  font-size: 18px;
+  font-weight: 750;
+  color: #33663A;
+}
+
+.form-field {
+  margin-bottom: 12px;
+}
+
+.text-input, .search-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #C4D4C8;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  background: #FAFCFA;
+}
+
+.text-input:focus, .search-input:focus {
+  border-color: #427A58;
+  background: white;
+}
+
+.radio-group {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.catalog-picker {
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid #E1E8E2;
+  border-radius: 12px;
+  margin-top: 8px;
+  background: #FAFCFA;
+}
+
+.catalog-option {
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #383838;
+  border-bottom: 1px solid #EFEFEF;
+  cursor: pointer;
+}
+
+.catalog-option:hover {
+  background: #E7F1E9;
+  color: #33663A;
+  font-weight: 600;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.primary-button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 12px;
+  background: #427A58;
+  color: white;
+  font-weight: 700;
+}
+
+.secondary-button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #C4D4C8;
+  border-radius: 12px;
+  background: white;
+  color: #315B40;
+  font-weight: 700;
+}
+
+.danger-button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 12px;
+  background: #C0392B;
+  color: white;
+  font-weight: 700;
+}
+
+.empty-state {
+  text-align: center;
+  color: #666;
+  padding: 24px;
+}
+
+/* Clases de Ingredientes */
+.ingredients-screen {
+  width: 100%;
+  min-height: 100dvh;
+  background: #F5F7F4;
+}
+
+.ingredients-header {
+  background: #427A58;
+  color: white;
+  padding: calc(18px + env(safe-area-inset-top)) 16px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ingredients-list {
+  display: grid;
+  gap: 12px;
+}
+
+.ingredient-card {
+  padding: 16px;
+  border: 1px solid #E1E8E2;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 3px 10px rgba(36, 58, 43, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ingredient-name {
+  font-size: 16px;
+  font-weight: 750;
+  color: #315B40;
+  margin: 0 0 4px;
+}
+
+.ingredient-details {
+  font-size: 14px;
+  color: #555;
+  margin: 0 0 4px;
+}
+
+.ingredient-category {
+  display: inline-block;
+  padding: 3px 8px;
+  background: #E7F1E9;
+  color: #314A36;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+}
+
+.ingredient-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.add-ingredient-button {
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  border-radius: 12px;
+  background: #427A58;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(66, 122, 88, 0.3);
+}
+
+.ingredient-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.select-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #C4D4C8;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  background: #FAFCFA;
+}
+
+.validation-message {
+  color: #C0392B;
+  font-size: 13px;
+  margin: 4px 0 0;
+  font-weight: 600;
+}
+
+/* Clases de Lista de la Compra Rediseñadas */
+.shopping-screen {
+  min-height: 100dvh;
+  background: #F5F7F4;
+}
+
+.shopping-header {
+  background: #427A58;
+  color: white;
+  padding:
+    calc(18px + env(safe-area-inset-top))
+    16px
+    16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.shopping-content {
+  width: min(100%, 720px);
+  margin: 0 auto;
+  padding: 16px 12px calc(28px + env(safe-area-inset-bottom));
+}
+
+.shopping-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.add-manual-product-button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: #315B40;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.share-list-button,
+.copy-list-button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-list-button {
+  border: 0;
+  background: #315B40;
+  color: white;
+}
+
+.copy-list-button {
+  border: 1px solid #A8C5B0;
+  background: white;
+  color: #315B40;
+}
+
+.shopping-category {
+  margin-bottom: 20px;
+}
+
+.shopping-category-title {
+  font-size: 20px;
+  font-weight: 750;
+  color: #33663A;
+  margin: 0 0 10px;
+  border-bottom: 2px solid #E7F1E9;
+  padding-bottom: 4px;
+}
+
+.shopping-list {
+  display: grid;
+  gap: 10px;
+}
+
+.shopping-item {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 14px;
+  border: 1px solid #DDE6DF;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 2px 7px rgba(36, 58, 43, 0.07);
+  cursor: pointer;
+}
+
+.shopping-checkbox {
+  width: 22px;
+  height: 22px;
+  margin: 2px 0 0;
+  accent-color: #427A58;
+  cursor: pointer;
+}
+
+.shopping-item-content {
+  min-width: 0;
+}
+
+.shopping-item-main {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.shopping-item-name {
+  color: #263A2B;
+  font-size: 16px;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
+.shopping-item-quantity {
+  color: #315B40;
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.shopping-item-origin {
+  margin-top: 5px;
+  color: #68766C;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.shopping-item-checked {
+  background: #EDF2EE;
+  opacity: 0.72;
+}
+
+.shopping-item-checked .shopping-item-name {
+  text-decoration: line-through;
+}
+
+.missing-dishes-section {
+  margin-top: 26px;
+  padding: 16px;
+  border: 1px solid #E7D7A7;
+  border-radius: 16px;
+  background: #FFF9E8;
+}
+
+.missing-dishes-section h2 {
+  margin: 0 0 12px;
+  color: #765A00;
+  font-size: 18px;
+  font-weight: 750;
+}
+
+.missing-dish-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 9px 0;
+  border-bottom: 1px solid #EFE2BD;
+  font-size: 14px;
+  color: #594400;
+}
+
+.missing-dish-card:last-child {
+  border-bottom: 0;
+}
+
+.loading-state, .error-state {
+  text-align: center;
+  padding: 32px;
+  color: #666;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.manual-product-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #EFE2BD;
+  color: #765A00;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.manual-product-actions {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.manual-product-edit, .manual-product-delete {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.manual-product-edit {
+  color: #427A58;
+}
+
+.manual-product-delete {
+  color: #C0392B;
+}
+
+.product-success-message {
+  background: #E7F1E9;
+  color: #33663A;
+  border: 1px solid rgba(51,102,58,0.3);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.product-validation-error {
+  color: #C0392B;
+  font-size: 13px;
+  margin: 4px 0 0;
+  font-weight: 600;
+}
+
+/* Clases de Exportación Excel */
+.export-options {
+  display: grid;
+  gap: 12px;
+  margin: 12px 0 16px;
+}
+
+.export-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #FAFCFA;
+  border: 1px solid #E1E8E2;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.export-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.export-button {
+  min-height: 44px;
+}
+
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 22px;
+  }
+
+  .meal-row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .edit-button {
+    grid-column: 2;
+    justify-self: end;
+  }
+
+  .shopping-item-main {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .shopping-item-quantity {
+    white-space: normal;
+  }
+
+  .shopping-actions > button {
+    flex: 1 1 calc(50% - 8px);
+  }
+}
