@@ -16,6 +16,7 @@ interface PlanificadorScreenProps {
   onNavigate: (screen: 'PLANIFICADOR' | 'CATALOGO' | 'FAVORITAS' | 'ESTADISTICAS' | 'COMPRA' | 'CONFIGURACION') => void;
   refreshTrigger: number;
   onInicioSemanaChange?: (date: Date) => void;
+  onLogout: () => void;
 }
 
 const PREDETERMINADOS_SEMANA: Record<string, { comida: string; cena: string }> = {
@@ -28,7 +29,7 @@ const PREDETERMINADOS_SEMANA: Record<string, { comida: string; cena: string }> =
   SUNDAY: { comida: 'Pollo asado', cena: 'Sopa' }
 };
 
-export const PlanificadorScreen: React.FC<PlanificadorScreenProps> = ({ onNavigate, refreshTrigger, onInicioSemanaChange }) => {
+export const PlanificadorScreen: React.FC<PlanificadorScreenProps> = ({ onNavigate, refreshTrigger, onInicioSemanaChange, onLogout }) => {
   const [desplazamiento, setDesplazamiento] = useState<number>(0);
   const [inicioSemana, setInicioSemana] = useState<Date>(new Date());
   const [diasSemana, setDiasSemana] = useState<Date[]>([]);
@@ -186,6 +187,7 @@ export const PlanificadorScreen: React.FC<PlanificadorScreenProps> = ({ onNaviga
         onNavigate={onNavigate}
         onExportarExcel={() => setMostrarDialogoExportar(true)}
         onGenerarMenu={() => setMostrarDialogoGenerar(true)}
+        onLogout={onLogout}
       />
       <SelectorSemana
         inicioSemana={inicioSemana}
